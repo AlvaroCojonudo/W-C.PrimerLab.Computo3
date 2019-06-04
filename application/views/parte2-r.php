@@ -7,8 +7,15 @@
                 </div>
                 <div class="card-body">                    
                     <p class="lead">
+                        La oracion <b>sin vocales</b> es: 
                         <?php
-                        echo $respuesta;
+                        echo $respuesta[1];
+                        ?>
+                    </p>
+                    <p class="lead">
+                        La oracion solo mostrando la letra <b>'M, s, l'</b>: 
+                        <?php
+                        echo $respuesta[2];
                         ?>
                     </p>
                 </div>

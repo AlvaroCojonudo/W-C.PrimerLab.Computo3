@@ -1,5 +1,7 @@
 <?php
 
+header('Content-Type: text/html; charset=utf-8');
+
 class Parte2 extends CI_Controller {
 
     public function __construct() {
@@ -12,42 +14,22 @@ class Parte2 extends CI_Controller {
     }
 
     public function validacion() {
-        $string = "Mañana será un día soleado.";
-        $findme = 'ñ';
-        
-        if($pos = strpos($string, $findme)){
-            
-        }
-        var_dump($pos);
-        /* $string = $this->input->get('string');
-          $respuesta = null;
-          if ($string != null) {
-          if (ctype_alpha($string)) {
-          if (ctype_upper($string)) {
-          $respuesta = 'El string contiene solo letras en MAYUSCULA';
-          } else if (ctype_lower($string)) {
-          $respuesta = 'El string contiene solo letras en minusculas';
-          } else {
-          $respuesta = 'El string contiene solo letras en MAYUSCULAS y minusculas';
-          }
-          } else if (ctype_digit($string)) {
-          $respuesta = 'El string contiene solo numeros';
-          } else {
-          if (ctype_upper($string)) {
-          $respuesta = 'El string contiene números y letras en MAYUSCULA';
-          } else if (ctype_lower($string)) {
-          $respuesta = 'El string contiene números y letras en minusculas';
-          } else {
-          $respuesta = 'El string contiene números y letras en MAYUSCULAS y minusculas';
-          }
-          }
-          } else {
-          $respuesta = 'No se digitó string alguno';
-          } 
+        $string = $this->input->get('string');
+        $sinvocal = str_replace(['A', 'a', 'e', 'i', 'o', 'u', 'á', 'í'], '', $string);
+        $solox = ['M', 'l', 's', ' '];
+        $oracioneval = Array($string);
+        for ($i = 0; $i < count($solox); $i ++) {
+            array_push($oracioneval, explode($solox[$i], $oracioneval[count($oracioneval) - 1]));
+            array_push($oracioneval, implode($oracioneval[count($oracioneval) - 1]));
+        }        
+        array_push($oracioneval, str_replace(str_split($oracioneval[count($oracioneval) - 1]), '', $oracioneval[0]));
         $data['content'] = 'parte2-r';
-        $data['respuesta'] = $respuesta;
+        $data['respuesta'] = [
+            '1' => $sinvocal,
+            '2' => $oracioneval[count($oracioneval) - 1]
+        ];
         $data['string'] = $string;
-        $this->load->view('plantilla', $data);*/
+        $this->load->view('plantilla', $data);
     }
 
 }
